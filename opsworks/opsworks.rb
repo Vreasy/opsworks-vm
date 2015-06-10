@@ -283,7 +283,8 @@ module OpsWorks
   def self.prepare_deployment(path)
     tmp_dir = Dir.mktmpdir('vagrant-opsworks')
     File.chmod(0755, tmp_dir)
-    FileUtils.cp_r("#{path}/.", tmp_dir)
+    `cd #{path}/. ; git archive --format tar -o repo.tar -v HEAD . \\; 2>&1; tar -xf repo.tar -C #{tmp_dir}; rm repo.tar`
+    # FileUtils.cp_r("#{path}/.", tmp_dir)
     Dir.chdir(tmp_dir) do
       `find . -name '.git*' -exec rm -rf {} \\; 2>&1; git init; git add .; git -c user.name='Vagrant' -c user.email=none commit -m 'Create temporary repository for deployment.'`
     end
