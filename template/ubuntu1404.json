@@ -7,7 +7,7 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "iso_urls": [
-        "http://releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso",
+        "http://old-releases.ubuntu.com/releases/14.04.0/ubuntu-14.04.2-server-amd64.iso",
         "http://nl.releases.ubuntu.com/14.04/ubuntu-14.04.2-server-amd64.iso"
       ],
       "iso_checksum": "3bfa6eac84d527380d0cc52db9092cde127f161e",
