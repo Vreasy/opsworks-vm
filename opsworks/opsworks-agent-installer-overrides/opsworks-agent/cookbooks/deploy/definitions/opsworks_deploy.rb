@@ -77,6 +77,9 @@ define :opsworks_deploy do
       symlink_before_migrate(deploy[:symlink_before_migrate])
       symlinks(deploy[:symlinks]) unless deploy[:symlinks].nil?
       action deploy[:action]
+      # This timeout will be used by git clone
+      # We define it in stack.json, under each deploy object (vreasy and vreasy-test)
+      timeout deploy[:timeout]
 
       if deploy[:application_type] == 'rails' && node[:opsworks][:instance][:layers].include?('rails-app')
         restart_command "sleep #{deploy[:sleep_before_restart]} && #{node[:opsworks][:rails_stack][:restart_command]}"
