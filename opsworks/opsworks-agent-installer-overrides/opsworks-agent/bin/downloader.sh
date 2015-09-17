@@ -3,8 +3,8 @@
 
 # define default values for optional parameter
 MAX_FETCH_RETRIES=8
-WGET_TIMEOUT=30
-DOWNLOAD_TIMEOUT=120
+WGET_TIMEOUT=1200
+DOWNLOAD_TIMEOUT=600
 LOG_FILE="/dev/stderr"
 DOWNLOAD_DIR_PREFIX="/tmp/opsworks-downloader"
 
@@ -19,9 +19,9 @@ USAGE_TEXT=<<EOL
       created with mktemp will be created under this path. If not given mktemp will use \$TMPDIR
    -l Absolute path to the log file. (default = /dev/stderr)
    -r Maximum number of retries. (default = 8)
-   -t Timeout for downloading files. (default = 120 seconds)
+   -t Timeout for downloading files. (default = 600 seconds)
    -u URL of the file to download.
-   -w Wget timeout, value used for the -t option of wget. (default = 30)
+   -w Wget timeout, value used for the -t option of wget. (default = 1200)
    -h Show this stuff.
 
    The script will try to download the given file and retry if it's size doesn't match
