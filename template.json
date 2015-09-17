@@ -1,4 +1,12 @@
 {
+  "push": {
+    "name": "",
+    "vcs": true
+  },
+  "variables": {
+      "atlas_username": "{{env `ATLAS_USERNAME`}}",
+      "atlas_name": "{{env `ATLAS_NAME`}}"
+  },
   "builders": [
     {
       "vm_name": "ubuntu1404-opsworks",
@@ -103,6 +111,26 @@
         "opsworks/client.yml"
       ],
       "vagrantfile_template": "opsworks/Vagrantfile.template"
+    },
+    {
+        "type": "atlas",
+        "only": ["vmware-iso"],
+        "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+            "provider": "vmware_desktop",
+            "version": "0.0.1"
+        }
+    },
+    {
+        "type": "atlas",
+        "only": ["virtualbox-iso"],
+        "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+            "provider": "virtualbox",
+            "version": "0.0.1"
+        }
     }
   ]
 }

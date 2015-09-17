@@ -44,7 +44,8 @@ task :remove, [:box] => 'virtualbox:remove'
 # build a box for the specified provider
 def build_box(box, provider)
   log "Building #{box} for #{provider}"
-  sh "rm -f build/#{box}-opsworks-#{provider}.box && packer build -only=#{provider}-iso template/#{box}.json"
+  # sh "rm -f build/#{box}-opsworks-#{provider}.box && packer build -only=#{provider}-iso template/#{box}.json"
+  sh "rm -f build/#{box}-opsworks-#{provider}.box && packer build -only=#{provider}-iso template.json"
 end
 
 # build a box with vagrant
