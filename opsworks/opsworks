@@ -33,11 +33,12 @@ if [[ ! -f /opt/aws/opsworks/current/VERSION ]]; then
   wget -nv -O opsworks-agent-installer.tgz https://opsworks-instance-agent.s3.amazonaws.com/$OPSWORKS_AGENT_VERSION/opsworks-agent-installer.tgz
 
   tar -xzpof opsworks-agent-installer.tgz
-  cd opsworks-agent-installer/opsworks-agent/bin/
-  ./installer_wrapper.sh -R opsworks-instance-assets.s3.amazonaws.com
 
   # Copy the overrides for our customizations to the agent installer
   cp -r /tmp/opsworks/opsworks-agent-installer-overrides/* ./opsworks-agent-installer
+
+  cd opsworks-agent-installer/opsworks-agent/bin/
+  ./installer_wrapper.sh -R opsworks-instance-assets.s3.amazonaws.com
 
   # return to our previous location and destroy our temporary directory
   popd > /dev/null
