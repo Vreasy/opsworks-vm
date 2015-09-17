@@ -21,10 +21,9 @@
       "iso_checksum": "0501c446929f713eb162ae2088d8dc8b6426224a",
       "iso_checksum_type": "sha1",
       "ssh_username": "vagrant",
-      "ssh_wait_timeout": "30m",
       "ssh_password": "vagrant",
+      "ssh_timeout": "10m",
       "http_directory": "preseed",
-      "headless": true,
       "boot_wait": "5s",
       "boot_command": [
         "<esc><esc><enter><wait>",
@@ -50,6 +49,7 @@
     {
       "type": "shell",
       "execute_command": "echo 'vagrant' | sudo -S -E bash '{{.Path}}'",
+
       "scripts": [
         "provision/update.sh",
         "provision/network.sh",
@@ -62,15 +62,15 @@
     }
   ],
   "post-processors": [
-    {
+    [{
       "type": "vagrant",
-      "output": "build/ubuntu1404-opsworks-{{.Provider}}.box",
       "include": [
         "opsworks/opsworks",
         "opsworks/opsworks.rb",
         "opsworks/pre_config.yml",
         "opsworks/client.yml"
       ],
+      "keep_input_artifact": false,
       "vagrantfile_template": "opsworks/Vagrantfile.template"
     },
     {
@@ -79,9 +79,8 @@
         "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
         "artifact_type": "vagrant.box",
         "metadata": {
-            "provider": "virtualbox",
-            "version": "0.0.1"
+            "provider": "virtualbox"
         }
-    }
+    }]
   ]
 }
