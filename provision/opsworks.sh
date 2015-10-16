@@ -14,57 +14,20 @@ cat <<EOT > $TMPDIR/dna.json
     "swapfile_instancetypes": null
   },
   "opsworks_custom_cookbooks": {
-    "enabled": true,
-    "scm": {
-      "repository": "$TMPDIR/cookbooks"
-    },
-    "manage_berkshelf": true,
-    "recipes": [
-      "recipe[opsworks_initial_setup]",
-      "recipe[ssh_host_keys]",
-      "recipe[ssh_users]",
-      "recipe[dependencies]",
-      "recipe[apt]",
-      "recipe[deploy::default]",
-      "recipe[agent_version]",
-      "recipe[opsworks_stack_state_sync]",
-      "recipe[opsworks_cleanup]"
-    ]
-  }
+    "enabled": false,
+    "manage_berkshelf": false
+  },
+  "recipes": [
+    "opsworks_initial_setup",
+    "ssh_host_keys",
+    "ssh_users",
+    "dependencies",
+    "deploy::default",
+    "agent_version",
+    "opsworks_stack_state_sync",
+    "opsworks_cleanup"
+  ]
 }
-EOT
-
-# Use Berkshelf to pre-load some commonly-used community cookbooks
-cat <<EOT >> $TMPDIR/cookbooks/Berksfile
-source "https://supermarket.getchef.com"
-
-# pre-load some opscode community cookbooks
-cookbook "apt", ">= 2.0"
-cookbook "apache2"
-cookbook "aws"
-cookbook "bluepill"
-cookbook "build-essential"
-cookbook "couchdb"
-cookbook "cron"
-cookbook "git"
-cookbook "haproxy"
-cookbook "memcached"
-cookbook "mongodb"
-cookbook "mysql"
-cookbook "newrelic"
-cookbook "nginx"
-cookbook "nodejs"
-cookbook "ohai"
-cookbook "postgresql"
-cookbook "php"
-cookbook "php-fpm"
-cookbook "python"
-cookbook "redisio"
-cookbook "rsyslog"
-cookbook "runit"
-cookbook "sysctl"
-cookbook "yum"
-cookbook "yum-epel"
 EOT
 
 echo "==> Installing and running OpsWorks agent"
