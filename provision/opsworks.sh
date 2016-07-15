@@ -14,7 +14,10 @@ cat <<EOT > $TMPDIR/dna.json
     "swapfile_instancetypes": null
   },
   "opsworks_custom_cookbooks": {
-    "enabled": false,
+    "enabled": true,
+    "scm": {
+      "repository": "$TMPDIR/cookbooks"
+    },
     "manage_berkshelf": false
   },
   "recipes": [
