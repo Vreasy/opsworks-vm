@@ -288,6 +288,11 @@ module OpsWorks
       `cd #{path}/. ; git archive --format tar -o #{path}/repo.tar -v HEAD . ;`
       log "Deploying repo archive in tmp folder ..."
       `tar -xf #{path}/repo.tar -C #{tmp_dir}; rm #{path}/repo.tar`
+      log "Deploying any lfs managed file (*.tgz as of now) ..."
+      `mkdir lfs-archive`
+      `cp --parents \`find . -name "*.tgz"\` lfs-archive`
+      `cp -r lfs-archive/* #{tmp_dir}/`
+      `rm -r lfs-archive`
     else
       FileUtils.cp_r("#{path}/.", tmp_dir)
     end
