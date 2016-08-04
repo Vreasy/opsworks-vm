@@ -288,9 +288,11 @@ module OpsWorks
       `cd #{path}/. ; git archive --format tar -o #{path}/repo.tar -v HEAD . ;`
       log "Deploying repo archive in tmp folder ..."
       `tar -xf #{path}/repo.tar -C #{tmp_dir}; rm #{path}/repo.tar`
-      log "Deploying any lfs managed file (*.tgz as of now) ..."
+      log "Deploying any lfs managed file (*.tgz, *.woff and *.ttf as of now) ..."
       `mkdir lfs-archive`
-      `cp --parents \`find . -name "*.tgz"\` lfs-archive`
+      `find . -name "*.tgz" -exec sh -c 'cp --parents "$1" lfs-archive' - {} \\;`
+      `find . -name "*.woff" -exec sh -c 'cp --parents "$1" lfs-archive' - {} \\;`
+      `find . -name "*.ttf" -exec sh -c 'cp --parents "$1" lfs-archive' - {} \\;`
       `cp -r lfs-archive/* #{tmp_dir}/`
       `rm -r lfs-archive`
     else
